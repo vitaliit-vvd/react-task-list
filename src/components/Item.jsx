@@ -11,6 +11,15 @@ export default function Item({title, id, status}){
 
   const updateStatus = () => {
     setChecked(!checked);
+    const storedTodos = JSON.parse(localStorage.getItem('tasks'));
+    storedTodos.map((el) => {
+      if(el.id === id) {
+        el.status = !checked;
+      }
+      return true
+      }
+    )
+    localStorage.setItem('tasks', JSON.stringify(storedTodos));
   }
 
   return (

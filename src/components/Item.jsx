@@ -22,17 +22,34 @@ export default function Item({title, id, status}){
     localStorage.setItem('tasks', JSON.stringify(storedTodos));
   }
 
+  const [visible,setVisible] = useState(true);
+
+  const removeElement = () => {
+    setVisible(prev => !prev);
+    const storedTodos = JSON.parse(localStorage.getItem('tasks'));
+    let removeTodos = storedTodos.filter(item => {
+       return item.id !== id;
+    });
+    localStorage.setItem('tasks',JSON.stringify(removeTodos));
+  }
+
   return (
-    <li className={classes.join(' ')}>
-      <label>
-        <input type='checkbox'
-        checked={checked}
-        onChange={updateStatus} />
-        <span>{title}</span>
-        <i className='material-icons red-text'>
-          X
-        </i>
-      </label>
-    </li>
+    <>
+      {visible && (
+        <li className={classes.join(' ')}>
+          <label>
+            <input type="checkbox"
+                   checked={checked}
+                   onChange={updateStatus} />
+            <span>{title}</span>
+            <i className="material-icons red-text"
+               onClick={removeElement}
+            >
+              X
+            </i>
+          </label>
+        </li>
+      )}
+    </>
   )
 }

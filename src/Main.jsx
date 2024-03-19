@@ -19,10 +19,11 @@ function Main(){
   }, [tasks]);
 
   const addTask = (e) => {
-    if (e.key === 'Enter' && e.target.value !== '') {
+    const storedTodos = JSON.parse(localStorage.getItem('tasks'));
+    if (e.key === 'Enter' && e.target.value !== ''){
       setTasks([
-        ...tasks, {
-        id: uuidv4(),
+        ...storedTodos, {
+          id: uuidv4(),
           title: tasksTitle,
           status: false
         }

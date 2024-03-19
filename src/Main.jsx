@@ -4,8 +4,19 @@ import { v4 as uuidv4 } from 'uuid';
 
 function Main(){
 
-  const [tasks,setTasks] = useState([{id: 0, title: 'Clean', status: false}])
+  const [tasks,setTasks] = useState(() => {
+    const storedTodos = localStorage.getItem('tasks');
+    if(!storedTodos) {
+      return []
+    } else {
+      return JSON.parse(storedTodos);
+    }
+  });
   const [tasksTitle, setTasksTitle] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks]);
 
   const addTask = (e) => {
     if (e.key === 'Enter' && e.target.value !== '') {

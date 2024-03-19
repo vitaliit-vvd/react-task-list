@@ -31,19 +31,25 @@ function Main(){
     }
   }
 
+  const date = new Date();
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const month = monthNames[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+
     return (
       <div className='container'>
         <h1>Note your tasks</h1>
-
+        <span>{month + ' ' + day + ', ' + year}</span>
         <div className='input-field'>
           <input type='text'
-          value={tasksTitle}
-          onChange={event => setTasksTitle(event.target.value)}
+                 value={tasksTitle}
+                 onChange={event => setTasksTitle(event.target.value)}
                  onKeyDown={addTask}
           />
           <label>Task name</label>
         </div>
-        <List tasks={tasks} />
+        <List tasks={tasks}/>
       </div>
     )
 }
